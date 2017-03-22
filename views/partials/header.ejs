@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TV Series App</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+    <div class="ui container">
+    <div class="ui large menu">
+      <div class="left menu">
+        <a class="item" href="/">My Tv App</a>
+      </div>
+
+      <div id="search" class="item">
+        <div class="ui fluid icon input">
+          <form id="searchForm" action="/results" method="get">
+          <input type="text" name="search" placeholder="Search...">
+          <i class="search icon"></i>
+          </form>
+        </div>
+      </div>
+
+      <div class="right menu">
+        <a class="item">Sign Up</a>
+      </div>
+      </div>
+
+<div class="ui content container">

@@ -1,0 +1,22 @@
+{
+  "name": "tvseries",
+  "version": "1.0.0",
+  "description": "TV series scheduler",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arturs Dovans",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "express-session": "^1.15.1",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.9.1",
+    "request": "^2.81.0"
+  }
+}

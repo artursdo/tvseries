@@ -1,0 +1,95 @@
+<% include ../partials/header %>
+
+
+<div class="ui equal width grid">
+  <div class="row">
+    <div class="column">
+      <img class="ui centered medium rounded image" src="<%=show.image[0].original %>">
+    </div>
+    <div class="column">
+      <h1 class="ui center aligned header">
+        <%= show.name %>
+      </h1>
+
+      <h4 class="ui horizontal divider header">
+        Description
+      </h4>
+      <%- show.description %>
+
+      <h4 class="ui horizontal divider header">
+        Specifications
+      </h4>
+
+      <table class="ui definition table">
+      <tbody>
+        <tr>
+          <td class="six wide column">IMDB Link</td>
+          <td><a target="_blank" href="http://www.imdb.com/title/<%=show.imdb_link %>">IMDB Links</a></td>
+        </tr>
+        <tr>
+          <td>Status</td>
+          <td><%= show.status %></td>
+        </tr>
+        <tr>
+          <td>Air Days</td>
+          <td><%= show.air_days[0] %></td>
+        </tr>
+        <tr>
+          <td>Genres</td>
+          <td><%= show.genres.join(", ") %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="fluid ui button"><i class="empty star icon"></i> Add To Favorites</button>
+    </div>
+
+</div>
+
+<div class="ui divider"></div>
+
+<div class="row">
+
+<div class="column">
+  <h2 class="ui center aligned header">
+    Episode List
+  </h2>
+
+
+</div>
+
+<% for(var i=show.episodes.length-1; i !== 0; i--){ %>
+<div class="ui segment">
+    <h3 class="ui horizontal divider header">
+      Season   <%= i %>
+    </h3>
+<div class="ui divided items">
+  <% for(var x=show.episodes[i].length-1; x !== -1; x--){ %>
+  <div class="item">
+    <div class="image">
+      <img src="<%= show.episodes[i][x].image %>">
+    </div>
+    <div class="content">
+      <h4><%= show.episodes[i][x].number %>. <%= show.episodes[i][x].name %></h4>
+      <div class="meta">
+        <span>Description</span>
+      </div>
+      <div class="description">
+        <p><%- show.episodes[i][x].description %></p>
+      </div>
+      <div class="extra">
+        <%= show.episodes[i][x].airdate %>
+      </div>
+    </div>
+  </div>
+<% } %>
+</div>
+</div>
+<% } %>
+</div>
+
+</div>
+
+
+
+<% include ../partials/footer %>

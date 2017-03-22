@@ -1,0 +1,22 @@
+<% if(show.constructor === Array){ %>
+<% show.forEach(function(item){ %>
+
+  <img src="<%=item.image %>" alt="">
+  <h4><%= item.name %></h4>
+
+  <%- item.description %>
+
+  <% item.episodes.forEach(function(episode){ %>
+
+    <img src="<%=episode.image %>" alt="">
+
+  <% }); %>
+
+<% }); %>
+<% } else {%>
+
+  <img src="<%=show.image %>" alt="">
+
+  <%= show.name %>
+
+<% } %>

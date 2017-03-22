@@ -1,0 +1,28 @@
+body{
+
+
+  background: #E0EAFC; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #E0EAFC , #CFDEF3); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #E0EAFC , #CFDEF3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.ui.cards > .card, .ui.table, .ui.segment, .ui.menu{
+      background: rgba(255,255,255,0.5);
+}
+
+.container.content{
+  margin-top: 7em;
+}
+
+#search:before{
+  width: 0;
+}
+
+#search{
+  width: 75%;
+}
+
+#searchForm{
+width: 100%;
+}
