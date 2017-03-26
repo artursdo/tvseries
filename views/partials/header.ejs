@@ -13,23 +13,46 @@
   <body>
 
     <div class="ui container">
-    <div class="ui large menu">
-      <div class="left menu">
-        <a class="item" href="/">My Tv App</a>
-      </div>
-
-      <div id="search" class="item">
-        <div class="ui fluid icon input">
-          <form id="searchForm" action="/results" method="get">
-          <input type="text" name="search" placeholder="Search...">
-          <i class="search icon"></i>
-          </form>
+    <div class="ui menu">
+      <a class="browse item">
+        <i class="sidebar icon"></i>
+        My Tv App
+      </a>
+        <div class="ui vertical menu popup bottom left transition hidden">
+          <div class="item">
+            <div class="header">Series</div>
+            <div class="menu">
+              <a href="/series" class="item">Home</a>
+              <a href="/series/schedule" class="item">Schedule</a>
+            </div>
+          </div>
+          <!-- <div class="item">
+            <div class="header">CMS Solutions</div>
+            <div class="menu">
+              <a class="item">Rails</a>
+              <a class="item">Python</a>
+              <a class="item">PHP</a>
+            </div>
+          </div> -->
+          <div class="item menu-login-buttons">
+            <div class="ui fluid buttons">
+              <button class="ui blue button">Login</button>
+              <div class="or"></div>
+              <button class="ui teal button">Sign Up</button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="right menu">
-        <a class="item">Sign Up</a>
-      </div>
-      </div>
+        <form id="searchForm" action="/series/results" method="get">
+          <div id="search" class="ui category search item">
+            <div class="ui transparent icon input">
+              <input class="prompt" name="search" type="text" placeholder="Search TV Series...">
+              <i class="search link icon"></i>
+            </div>
+          </div>
+        </form>
+
+    </div>
+    </div>
 
 <div class="ui content container">

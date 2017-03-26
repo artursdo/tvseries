@@ -3,8 +3,10 @@ var app = express();
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var moment = require('moment');
 
 var Series = require("./models/series");
+var Maze = require("./models/maze");
 // var eztv = require('eztv');
 
 mongoose.connect("mongodb://localhost/tv_series_db");
@@ -13,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", ".ejs");
 
+app.locals.moment = moment;
 
 app.get("/", function(req,res){
   res.render("landing");
@@ -30,41 +33,63 @@ app.get("/series", function(req,res){
 });
 });
 
+app.get("/series/schedule", function(req,res){
+  date = new Date();
+  date.setDate(date.getDate()-1);
+  Series.aggregate([{ $match: {episodes: {$elemMatch: {$elemMatch:  {airdate: {$gt: date}}}}}},
+                    { "$unwind": "$episodes" },
+                    {"$unwind": "$episodes"},
+                    {$match:{"episodes.airdate": {$gt: date}}},
+                    {$sort: { "episodes.airdate": +1 }}]).exec(
+  function(err, series){
+    if(err){
+      console.log(err);
+    } else {
+      sortSchedule(series, function(series){
+         console.log(series);
+        res.render("series/schedule", {series: series});
+      });
+    }
+  })
+});
+
+function sortSchedule(series, callback){
+  var episodesList = {};
+  series.forEach(function(show){
+    var date = show.episodes.airdate;
+    if (!episodesList[date]) {
+      episodesList[date] = [];
+    }
+    episodesList[date].push(show);
+  });
+  callback(episodesList);
+}
+
+
+app.get("/series/results", function(req,res){
+  var result = Maze.search(req.query.search, function(result){
+    res.render("series/results", {series: result});
+  });
+});
+
+
 app.get("/series/:id", function(req,res){
-      Series.find({maze_id: req.params.id}, function (err, series) {
+      Series.findOne({maze_id: req.params.id}, function (err, series) {
         if(err){
           console.log(err);
         } else {
-          res.render("series/show", {show: series[0]});
+          if (series) {
+              console.log("Found in DB: " + series.name);
+              res.render("series/show", {show: series});
+          } else {
+              console.log("not in DB");
+              Maze.create(req.params.id, function(series){
+                res.render("series/show", {show: series});
+              })
+          }
         }
       });
 });
-
-
-app.get("/search", function(req,res){
-  res.render("series");
-});
-
-app.get("/series/results", function(req,res){
-
-      if (req.query.search) {
-          Series.find({ name: {$regex: req.query.search , $options: "i"}}, function (err, series) {
-              if (series == "") {
-                console.log("not in DB");
-                searchMaze(req.query.search, function(result){
-                  console.log("length: "+ (result.constructor === Array) ? "true" : "false");
-                  res.render("series/results", {show: result});
-                });
-
-
-              } else{
-                console.log("length: "+ (series.constructor === Array) ? "true" : "false");
-                console.log("Found in db :" + series[0].name);
-                res.render("series/results", {show: series});
-              }
-          });
-      }
-
 
 
 //EZTV LATER
@@ -76,64 +101,9 @@ app.get("/series/results", function(req,res){
   // });
 
 
-// FIND TV SHOW
-
-});
 
 
-function searchMaze(query, callback){
-  var searchParams = 'http://api.tvmaze.com/singlesearch/shows?q=' + query + '&embed=episodes';
-  request(searchParams, function(error, response, body){
-        if(!error && response.statusCode == 200){
-            buildSeries(JSON.parse(body), callback);
-        }
-        if(error){
-          console.log(error);
-        }
-  });
-}
 
-function buildSeries(series, callback){
-  var episodes = series._embedded.episodes;
-  var episodesList = [];
-
-  episodes.forEach(function(episode){
-    var season = episode.season;
-    var item = {
-      maze_series_id: episode.id,
-      name: episode.name,
-      season: episode.season,
-      number: episode.number,
-      airdate: episode.airdate,
-      runtime: episode.runtime,
-      image: (episode.image) ? episode.image.original : "",
-      description: episode.summary
-    };
-
-    if (!episodesList[season]) {
-      episodesList[season] = [];
-    }
-    episodesList[season].push(item);
-  });
-      var show = {
-        maze_id: series.id,
-        name: series.name,
-        genres: series.genres,
-        status: series.status,
-        air_days: series.schedule.days,
-        imdb_link: series.externals.imdb,
-        image: series.image,
-        description: series.summary,
-        episodes: episodesList
-      };
-      Series.create(show, function(err, newlyCreated){
-        if (err){
-          console.log(err);
-        } else{
-          callback(newlyCreated);
-        }
-      });
-}
 
 
 app.listen(3000, function(){

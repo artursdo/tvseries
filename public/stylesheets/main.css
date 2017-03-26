@@ -7,12 +7,25 @@ body{
 
 }
 
-.ui.cards > .card, .ui.table, .ui.segment, .ui.menu{
+.ui.cards > .card, .ui.table, .ui.segment{
       background: rgba(255,255,255,0.5);
 }
 
+ /*.ui.menu:not(.vertical) .left.menu{
+   background: rgba(255,255,255,0.95);
+ }*/
+
 .container.content{
-  margin-top: 7em;
+  margin-top: 5em;
+}
+
+.schedule.ui.celled.table tr td:first-child{
+  padding: 0;
+}
+
+.ui.vertical.menu .item.menu-login-buttons{
+  padding-left: 0;
+  padding-right: 0;
 }
 
 #search:before{
@@ -20,7 +33,8 @@ body{
 }
 
 #search{
-  width: 75%;
+  width: 100%;
+  margin-top: 0.3em;
 }
 
 #searchForm{

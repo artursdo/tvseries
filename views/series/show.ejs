@@ -78,7 +78,7 @@
         <p><%- show.episodes[i][x].description %></p>
       </div>
       <div class="extra">
-        <%= show.episodes[i][x].airdate %>
+        <%= moment(show.episodes[i][x].airdate).format("DD-MM-YYYY") %>
       </div>
     </div>
   </div>

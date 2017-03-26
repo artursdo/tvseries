@@ -1,0 +1,40 @@
+<% include ../partials/header %>
+<br>
+<% Object.keys(series).forEach(function(key, index) { %>
+      <table class="ui celled striped table schedule">
+        <thead>
+          <tr><th colspan="2">
+            <%= moment(key).format("DD-MM-YYYY") %>
+          </th>
+        </tr>
+      </thead>
+        <tbody>
+  <% this[key].forEach(function(episode){ %>
+    <tr>
+      <td  class="collapsing">
+        <div class="ui image">
+          <% if(episode.image){ %>
+          <img class="ui tiny image" src="<%= episode.image[0].medium %>">
+            <% } %>
+        </div>
+    </td>
+      <td>
+        <h4 class="ui header">
+        <div class="content">
+          <a href="/series/<%= episode.maze_id %>" class="header">
+          <%= episode.name %>
+        </a>
+          <div class="sub header">
+            S<%= episode.episodes.season %>-E<%= episode.episodes.number %> .
+            <%= episode.episodes.name %>
+        </div>
+      </div>
+      </h4>
+      </td>
+    </tr>
+  <% }) %>
+    </tbody>
+</table>
+<% }, series); %>
+
+<% include ../partials/footer %>
