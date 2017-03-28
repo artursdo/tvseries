@@ -21,7 +21,11 @@
           </a>
 
           <div class="meta">
-            <a href="http://www.imdb.com/title/<%=show.imdb_link %>">IMDB Links</a>
+            <% if(show.status === "Running"){ %>
+              <strong>Show is Running</strong>
+            <% } else { %>
+              <strong>Show has Ended</strong>
+            <% } %>
           </div>
           <div class="description">
             <%-show.description.substr(0,150) %>
@@ -34,15 +38,28 @@
             </p>
           </div>
         </div>
-        <div class="extra content">
-          <span class="right floated">
-            <% if(show.status === "Running"){ %>
-              Episodes iznāk: <%=show.air_days[0] %>
-            <% } else { %>
-              <strong>Šovs ir BEIDZIES</strong>
-            <% } %>
-          </span>
-        </div>
+        <% if(currentUser){ %>
+          <% if(show.users.some(function(el){%>
+            <% return el.equals(currentUser._id) %>
+          <%})){ %>
+            <form class="ui form" action="/remove-favorite" method="post">
+              <input type="hidden" name="show_id" value="<%= show._id %>">
+              <div class="ui bottom attached favorite red button" onclick="$(this).closest('form').submit()">
+                  <i class="remove icon"></i>
+                   Remove From Favorites
+              </div>
+            </form>
+          <% } else { %>
+            <form class="ui form" action="/favorite" method="post">
+              <input type="hidden" name="show_id" value="<%= show._id %>">
+              <div class="ui bottom attached favorite green button" onclick="$(this).closest('form').submit()">
+                  <i class="star icon"></i>
+                   Add To Favorites
+              </div>
+            </form>
+          <% } %>
+        <% } %>
+
       </div>
 
       <% }); %>

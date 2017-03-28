@@ -1,6 +1,8 @@
 </div>
 </div>
 
+<% include ./modals %>
+
 <script type="text/javascript">
 $('.menu .browse')
 .popup({
@@ -11,8 +13,17 @@ $('.menu .browse')
     show: 300,
     hide: 800
   }
-})
-;
+});
+
+
+$('.ui.small.login.modal')
+  .modal('setting', 'transition', 'scale')
+  .modal('attach events', '.ui.login-button', 'show');
+
+$('.ui.small.register.modal')
+  .modal('setting', 'transition', 'scale')
+  .modal('attach events', '.ui.register-button', 'show');
+
 </script>
 
 </body>

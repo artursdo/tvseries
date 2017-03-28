@@ -1,10 +1,15 @@
 <% include ../partials/header %>
 <br>
+
 <% Object.keys(series).forEach(function(key, index) { %>
       <table class="ui celled striped table schedule">
         <thead>
           <tr><th colspan="2">
-            <%= moment(key).format("DD-MM-YYYY") %>
+            <% if(moment(key).format("DD-MM-YYYY") === moment().format("DD-MM-YYYY")){ %>
+              TODAY
+            <% }else{ %>
+                <%= moment(key).format("DD-MM-YYYY") %>
+            <% } %>
           </th>
         </tr>
       </thead>
@@ -25,7 +30,7 @@
           <%= episode.name %>
         </a>
           <div class="sub header">
-            S<%= episode.episodes.season %>-E<%= episode.episodes.number %> .
+            S<%= episode.episodes.season %>-E<%= episode.episodes.number %>
             <%= episode.episodes.name %>
         </div>
       </div>

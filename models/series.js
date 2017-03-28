@@ -20,7 +20,13 @@ var seriesSchema = new mongoose.Schema({
     image: String,
     description: String
   }
-  ]]
+]],
+users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+]
 });
 
 module.exports = mongoose.model("Series", seriesSchema);

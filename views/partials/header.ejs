@@ -34,16 +34,8 @@
               <a class="item">PHP</a>
             </div>
           </div> -->
-          <div class="item menu-login-buttons">
-            <div class="ui fluid buttons">
-              <button class="ui blue button">Login</button>
-              <div class="or"></div>
-              <button class="ui teal button">Sign Up</button>
-            </div>
-          </div>
         </div>
-
-        <form id="searchForm" action="/series/results" method="get">
+        <form id="searchForm" class="ui form" action="/series/results" method="get">
           <div id="search" class="ui category search item">
             <div class="ui transparent icon input">
               <input class="prompt" name="search" type="text" placeholder="Search TV Series...">
@@ -51,6 +43,38 @@
             </div>
           </div>
         </form>
+
+
+        <% if(currentUser){ %>
+
+          <a class="ui right browse item">
+              <img class="ui avatar image" src="<%= currentUser.avatar_path %>">
+              <%= currentUser.username %>
+              <i class="dropdown icon"></i>
+          </a>
+
+          <div class="ui vertical menu popup bottom left transition hidden">
+            <div class="item">
+              <div class="menu">
+                <a href="/user/schedule" class="item">My Schedule</a>
+                <a href="/user/series" class="item">My Series</a>
+                <a class="item">Edit Profile</a>
+              </div>
+            </div>
+
+            <a href="/logout" class="ui mini button">
+              Logout
+            </a>
+          </div>
+        <% } else { %>
+          <div class="ui right item menu-login-buttons">
+            <div class="ui buttons">
+              <button class="ui login-button blue button">Login</button>
+              <div class="or"></div>
+              <button class="ui register-button teal button">Sign Up</button>
+            </div>
+          </div>
+        <% } %>
 
     </div>
     </div>

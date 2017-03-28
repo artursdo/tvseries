@@ -1,0 +1,56 @@
+<div class="ui small login modal">
+  <div class="blue header">
+  Log In
+  </div>
+  <form action="/login" method="post" class="ui form">
+    <div class="ui two column centered grid">
+      <div class="column">
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" name="email" placeholder="joe@schmoe.com">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" name="password">
+        </div>
+        <button class="ui fluid blue button" type="submit">
+          <i class="sign in icon"></i>
+           Log In
+         </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="ui small register modal">
+  <div class="blue header">
+  Register
+  </div>
+  <form action="/register" method="post" class="ui form">
+    <div class="ui two column centered grid">
+      <div class="column">
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" name="email" placeholder="joe@schmoe.com">
+        </div>
+        <div class="field">
+          <label>Name</label>
+          <input type="text" name="username" placeholder="Username">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" name="password">
+        </div>
+        <div class="field">
+          <label>Retype Password</label>
+          <input type="password">
+        </div>
+        <button class="ui fluid teal button" type="submit">
+          <i class="sign in icon"></i>
+           Register
+         </button>
+      </div>
+    </div>
+  </form>
+</div>

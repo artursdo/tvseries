@@ -4,10 +4,19 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var moment = require('moment');
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
 
 var Series = require("./models/series");
+var User = require("./models/user");
 var Maze = require("./models/maze");
+var Helpers = require("./models/helpers");
 // var eztv = require('eztv');
+
+// Define Route Variables
+var seriesRoutes = require("./routes/series");
+var userRoutes = require("./routes/user");
+var indexRoutes = require("./routes/index");
 
 mongoose.connect("mongodb://localhost/tv_series_db");
 mongoose.Promise = require('bluebird');
@@ -15,92 +24,32 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", ".ejs");
 
-app.locals.moment = moment;
+//Passport configuration
+app.use(require("express-session")({
+  secret: "Last Friday in three week’s time I saw a spotted striped blue worm shake hands with a legless lizard.",
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-app.get("/", function(req,res){
-  res.render("landing");
+// Local Variables
+app.use(function(req,res,next){
+  app.locals.moment = moment;
+  res.locals.currentUser = req.user;
+  // res.locals.error = req.flash("error");
+  // res.locals.success = req.flash("success");
+  next();
 });
 
 
-app.get("/series", function(req,res){
-
-  Series.find().limit(20).exec(function(err, allSeries){
-  if(err){
-    console.log(err);
-  } else {
-    res.render("series/index", {series: allSeries});
-  }
-});
-});
-
-app.get("/series/schedule", function(req,res){
-  date = new Date();
-  date.setDate(date.getDate()-1);
-  Series.aggregate([{ $match: {episodes: {$elemMatch: {$elemMatch:  {airdate: {$gt: date}}}}}},
-                    { "$unwind": "$episodes" },
-                    {"$unwind": "$episodes"},
-                    {$match:{"episodes.airdate": {$gt: date}}},
-                    {$sort: { "episodes.airdate": +1 }}]).exec(
-  function(err, series){
-    if(err){
-      console.log(err);
-    } else {
-      sortSchedule(series, function(series){
-         console.log(series);
-        res.render("series/schedule", {series: series});
-      });
-    }
-  })
-});
-
-function sortSchedule(series, callback){
-  var episodesList = {};
-  series.forEach(function(show){
-    var date = show.episodes.airdate;
-    if (!episodesList[date]) {
-      episodesList[date] = [];
-    }
-    episodesList[date].push(show);
-  });
-  callback(episodesList);
-}
-
-
-app.get("/series/results", function(req,res){
-  var result = Maze.search(req.query.search, function(result){
-    res.render("series/results", {series: result});
-  });
-});
-
-
-app.get("/series/:id", function(req,res){
-      Series.findOne({maze_id: req.params.id}, function (err, series) {
-        if(err){
-          console.log(err);
-        } else {
-          if (series) {
-              console.log("Found in DB: " + series.name);
-              res.render("series/show", {show: series});
-          } else {
-              console.log("not in DB");
-              Maze.create(req.params.id, function(series){
-                res.render("series/show", {show: series});
-              })
-          }
-        }
-      });
-});
-
-
-//EZTV LATER
-
-  // eztv.getShows({query: 'big bang'}, function(error, results) {
-      // eztv.getShowEpisodes(23, function(error, result){
-      //   res.send(result);
-      // })
-  // });
-
-
+// Routes
+app.use(indexRoutes);
+app.use("/series", seriesRoutes);
+app.use("/user", userRoutes);
 
 
 

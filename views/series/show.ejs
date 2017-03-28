@@ -41,7 +41,29 @@
       </tbody>
     </table>
 
-    <button class="fluid ui button"><i class="empty star icon"></i> Add To Favorites</button>
+    <% if(currentUser){ %>
+      <% if(show.users.some(function(el){%>
+        <% return el.equals(currentUser._id) %>
+      <%})){ %>
+        <form class="ui form" action="/remove-favorite" method="post">
+          <input type="hidden" name="show_id" value="<%= show._id %>">
+          <button class="ui fluid favorite red button" type="submit">
+              <i class="remove icon"></i>
+               Remove From Favorites
+          </button>
+        </form>
+      <% } else { %>
+        <form class="ui form" action="/favorite" method="post">
+          <input type="hidden" name="show_id" value="<%= show._id %>">
+          <button class="ui fluid favorite green button" type="submit">
+              <i class="star icon"></i>
+               Add To Favorites
+          </button>
+        </form>
+      <% } %>
+    <% } %>
+
+
     </div>
 
 </div>
@@ -67,7 +89,7 @@
   <% for(var x=show.episodes[i].length-1; x !== -1; x--){ %>
   <div class="item">
     <div class="image">
-      <img src="<%= show.episodes[i][x].image %>">
+      <img src="<%= show.episodes[i][x].image ? show.episodes[i][x].image : "/images/no_image.jpg"  %>">
     </div>
     <div class="content">
       <h4><%= show.episodes[i][x].number %>. <%= show.episodes[i][x].name %></h4>

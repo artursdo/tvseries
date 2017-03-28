@@ -1,15 +1,43 @@
 body{
 
 
-  background: #E0EAFC; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #E0EAFC , #CFDEF3); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #E0EAFC , #CFDEF3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+
+  background: #FFA17F; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFA17F , #00223E); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFA17F , #00223E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+/*background: url(../images/sven-scheuermeier-106767.jpg);
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;*/
+  /*background: #E0EAFC;
+  background: -webkit-linear-gradient(to left, #E0EAFC , #CFDEF3);
+  background: linear-gradient(to left, #E0EAFC , #CFDEF3); */
 }
 
-.ui.cards > .card, .ui.table, .ui.segment{
+
+.ui.cards > .card,
+.ui.table,
+.ui.segment,
+.ui.small.login.modal,
+.ui.small.register.modal{
       background: rgba(255,255,255,0.5);
 }
+
+.ui.favorite.red.button{
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.ui.favorite.green.button{
+  background-color: rgba(0, 255, 0, 0.4);
+}
+
+/*.ui.menu .item {
+  padding: 0.52857143em 1.14285714em;
+}*/
 
  /*.ui.menu:not(.vertical) .left.menu{
    background: rgba(255,255,255,0.95);
@@ -23,9 +51,10 @@ body{
   padding: 0;
 }
 
-.ui.vertical.menu .item.menu-login-buttons{
-  padding-left: 0;
-  padding-right: 0;
+
+.ui.small.login.modal form, .ui.small.register.modal form{
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
 #search:before{
@@ -33,10 +62,12 @@ body{
 }
 
 #search{
+  vertical-align: middle;
   width: 100%;
-  margin-top: 0.3em;
+
 }
 
 #searchForm{
-width: 100%;
+  display: flex;
+  flex-grow: 100;
 }
