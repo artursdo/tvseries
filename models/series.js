@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var random = require('mongoose-simple-random');
 
 var seriesSchema = new mongoose.Schema({
   maze_id: Number,
@@ -9,6 +10,7 @@ var seriesSchema = new mongoose.Schema({
   imdb_link: String,
   image: Array,
   description: String,
+  rating: Number,
   episodes: [[
     {
     maze_series_id: String,
@@ -28,5 +30,7 @@ users: [
     }
 ]
 });
+
+seriesSchema.plugin(random);
 
 module.exports = mongoose.model("Series", seriesSchema);

@@ -31,11 +31,12 @@
             <a href="http://www.imdb.com/title/<%=item.show.externals.imdb %>">IMDB Links</a>
           </div>
           <div class="description">
-            <%-item.show.summary.substr(0,150) %>
+            <% if(item.show.summary){ %>
+            <%= striptags(item.show.summary.substr(0,150)) %>
             <%if(item.show.summary.length > 150){%>
               ...
             <%}%>
-
+            <% } %>
             <p>
                 <strong>Žanri: </strong><%= item.show.genres.join(", ") %>
             </p>

@@ -1,4 +1,4 @@
-body{
+body.pushable > .pusher{
 
 
 
@@ -27,6 +27,14 @@ background-attachment: fixed;*/
       background: rgba(255,255,255,0.5);
 }
 
+.ui.inverted.segment{
+  background: rgba(0,0,0,0.5);
+}
+
+.ui.secondary.inverted.pointing.menu{
+  border-color: transparent;
+}
+
 .ui.favorite.red.button{
   background-color: rgba(255, 0, 0, 0.4);
 }
@@ -43,8 +51,25 @@ background-attachment: fixed;*/
    background: rgba(255,255,255,0.95);
  }*/
 
+.ui.secondary.pointing.menu a.user.item{
+  position: relative;
+  padding-left: 2.5em;
+  padding-right: 0;
+  padding-bottom: 1em;
+}
+
+.ui.avatar.image{
+  position: absolute;
+  left: 0.2em;
+  top: 0;
+  bottom: 0.3em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .container.content{
   margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 .schedule.ui.celled.table tr td:first-child{
@@ -57,7 +82,7 @@ background-attachment: fixed;*/
   padding-bottom: 2em;
 }
 
-#search:before{
+/*#search:before{
   width: 0;
 }
 
@@ -70,4 +95,27 @@ background-attachment: fixed;*/
 #searchForm{
   display: flex;
   flex-grow: 100;
+}*/
+
+.masthead .ui.menu .ui.button {
+  margin-left: 0.5em;
+}
+
+
+.secondary.pointing.menu .toc.item {
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .secondary.pointing.menu .toc.item {
+    display: block;
+  }
+
 }

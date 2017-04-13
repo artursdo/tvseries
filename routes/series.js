@@ -5,19 +5,6 @@ var Maze = require("../models/maze");
 var Helpers = require("../models/helpers");
 
 
-// MAIN SERIES PAGE
-router.get("/", function(req,res){
-
-  Series.find().limit(20).exec(function(err, allSeries){
-  if(err){
-    console.log(err);
-  } else {
-    res.render("series/index", {series: allSeries});
-  }
-});
-});
-
-
 // SERIES SCHEDULE
 router.get("/schedule", function(req,res){
   date = new Date();

@@ -6,7 +6,14 @@ var Series = require("../models/series");
 var Helpers = require("../models/helpers");
 
 router.get("/", function(req,res){
-  res.render("landing");
+
+  Series.findRandom({}, {}, {limit: 8}, function(err, allSeries){
+  if(err){
+    console.log(err);
+  } else {
+    res.render("landing", {series: allSeries});
+  }
+});
 });
 
 router.post("/register", function(req,res){
@@ -30,7 +37,7 @@ router.post("/register", function(req,res){
 
 router.post("/login", passport.authenticate("local",
     {
-        successRedirect: "/series",
+        successRedirect: "/",
         failureRedirect: "/"
     }), function(req,res){
 });
@@ -38,7 +45,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req,res){
   req.logout();
   // req.flash("success", "Logged you out!");
-  res.redirect("/series");
+  res.redirect("/");
 });
 
 router.post("/favorite", function(req,res){

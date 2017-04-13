@@ -12,8 +12,77 @@
   </head>
   <body>
 
-    <div class="ui container">
-    <div class="ui menu">
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+      <a href="/" class="active item">Home</a>
+      <a href="/series/schedule" class="item">Schedule</a>
+      <a href="/series" class="item">Others Are Watching</a>
+      <% if(currentUser){ %>
+        <a href="/user/schedule" class="item">My Schedule</a>
+        <a href="/user/series" class="item">My Series</a>
+        <a href="/" class="user item">
+            <img class="ui avatar image" src="<%= currentUser.avatar_path %>">
+            <%= currentUser.username %>
+        </a>
+        <a href="/logout" class="ui inverted button">Logout</a>
+        <% } else { %>
+          <a class="ui login-button inverted button">Log in</a>
+          <a class="ui register-button inverted button">Sign Up</a>
+        <% } %>
+
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+      <div class="ui inverted vertical masthead center aligned segment">
+
+        <div class="ui container">
+          <form id="searchForm" class="ui form" action="/series/results" method="get">
+            <div id="search" class="ui category inverted search item">
+              <div class="ui fluid action input">
+                  <input class="prompt" name="search" type="text" placeholder="Search TV Series...">
+                <button type="submit" class="ui button">
+                  <i class="search link icon"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="ui large secondary inverted pointing menu">
+            <a class="toc item">
+              <i class="sidebar icon"></i>
+            </a>
+            <a href="/" class="active item">Home</a>
+            <a href="/series/schedule" class="item">Schedule</a>
+            <a href="/series" class="item">Others Are Watching</a>
+            <% if(currentUser){ %>
+              <a href="/user/schedule" class="item">My Schedule</a>
+              <a href="/user/series" class="item">My Series</a>
+            <% } %>
+
+            <div class="right menu">
+              <% if(currentUser){ %>
+                  <a href="/" class="user item">
+                    <img class="ui avatar image" src="<%= currentUser.avatar_path %>">
+                    <strong><%= currentUser.username %></strong>
+                  </a>
+                  <div class="item">
+                  <a href="/logout" class="ui inverted button">Logout</a>
+                  </div>
+              <% } else { %>
+                <div class="item">
+                <a class="ui login-button inverted button">Log in</a>
+                <a class="ui register-button inverted button">Sign Up</a>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- <div class="ui container">
+    <div class="ui stackable menu">
       <a class="browse item">
         <i class="sidebar icon"></i>
         My Tv App
@@ -22,18 +91,17 @@
           <div class="item">
             <div class="header">Series</div>
             <div class="menu">
-              <a href="/series" class="item">Home</a>
+              <a href="/" class="item">Home</a>
               <a href="/series/schedule" class="item">Schedule</a>
             </div>
           </div>
-          <!-- <div class="item">
-            <div class="header">CMS Solutions</div>
+          <div class="item">
+            <div class="header">My Series</div>
             <div class="menu">
-              <a class="item">Rails</a>
-              <a class="item">Python</a>
-              <a class="item">PHP</a>
+            <a href="/user/schedule" class="item">My Schedule</a>
+            <a href="/user/series" class="item">My Series</a>
             </div>
-          </div> -->
+          </div>
         </div>
         <form id="searchForm" class="ui form" action="/series/results" method="get">
           <div id="search" class="ui category search item">
@@ -77,6 +145,6 @@
         <% } %>
 
     </div>
-    </div>
+    </div> -->
 
 <div class="ui content container">

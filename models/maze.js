@@ -81,6 +81,7 @@ module.exports = {
           imdb_link: series.externals.imdb,
           image: series.image,
           description: series.summary,
+          rating: series.rating.average,
           episodes: episodesList
         });
 

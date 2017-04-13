@@ -4,6 +4,7 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var moment = require('moment');
+var striptags = require('striptags');
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 
@@ -39,6 +40,7 @@ passport.deserializeUser(User.deserializeUser());
 // Local Variables
 app.use(function(req,res,next){
   app.locals.moment = moment;
+  app.locals.striptags = striptags;
   res.locals.currentUser = req.user;
   // res.locals.error = req.flash("error");
   // res.locals.success = req.flash("success");
