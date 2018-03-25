@@ -29,6 +29,9 @@ users: [
       ref: "User"
     }
 ]
+},
+{ 
+  usePushEach: true 
 });
 
 seriesSchema.plugin(random);

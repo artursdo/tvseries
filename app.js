@@ -19,8 +19,12 @@ var seriesRoutes = require("./routes/series");
 var userRoutes = require("./routes/user");
 var indexRoutes = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/tv_series_db");
 mongoose.Promise = require('bluebird');
+mongoose.connect("mongodb://localhost/tv_series_db",
+  {
+    useMongoClient: true,
+    promiseLibrary: global.Promise
+  });
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", ".ejs");

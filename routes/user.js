@@ -11,7 +11,7 @@ router.get("/series", function(req,res){
   if(err){
     console.log(err);
   } else {
-    res.render("series/index", {series: allSeries});
+    res.render("series/index", {series: allSeries, header: "My Series"});
   }
 });
 });

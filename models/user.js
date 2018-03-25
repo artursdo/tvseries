@@ -6,7 +6,8 @@ var UserSchema = new mongoose.Schema({
   email: String,
   avatar_path: String,
   passport: String
-});
+},
+{ usePushEach: true });
 
 
 // UserSchema.methods.validPassword = function(password) {

@@ -101,6 +101,11 @@ background-attachment: fixed;*/
   margin-left: 0.5em;
 }
 
+.footer.segment {
+  /*position: absolute;*/
+  bottom: 0;
+  width: 100%;
+}
 
 .secondary.pointing.menu .toc.item {
   display: none;

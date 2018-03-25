@@ -31,9 +31,9 @@
 </div>
 
 </div>
-
+<% if(!currentUser){ %>
 <% include ./modals %>
-
+<% } %>
 <script type="text/javascript">
 
 $(document)
@@ -43,18 +43,6 @@ $(document)
     // create sidebar and attach to menu open
     $('.ui.sidebar')
       .sidebar('attach events', '.toc.item');
-
-      $('.menu .browse')
-      .popup({
-        inline     : true,
-        hoverable  : true,
-        position   : 'bottom left',
-        delay: {
-          show: 300,
-          hide: 800
-        }
-      });
-
 
       $('.ui.small.login.modal')
         .modal('setting', 'transition', 'scale')

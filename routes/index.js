@@ -7,6 +7,18 @@ var Helpers = require("../models/helpers");
 
 router.get("/", function(req,res){
 
+//Todays series
+
+// var gtdate = new Date();
+// gtdate.setDate(gtdate.getDate()-1);
+// var ltdate = new Date();
+// ltdate.setDate(ltdate.getDate());
+// db.getCollection('series').aggregate([{ $match: {episodes: {$elemMatch: {$elemMatch:  {airdate: { $gt: gtdate, $lt: ltdate}}}}}},
+//                     { "$unwind": "$episodes" },
+//                     {"$unwind": "$episodes"},
+//                     {$match:{"episodes.airdate": { $gt: gtdate, $lt: ltdate }}},
+//                     {$sort: { "episodes.airdate": +1 }}])
+
   Series.findRandom({}, {}, {limit: 8}, function(err, allSeries){
   if(err){
     console.log(err);
